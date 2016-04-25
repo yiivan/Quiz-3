@@ -1,0 +1,33 @@
+
+<% @ideas.each do |i| %>
+  <hr>
+  <div>
+    <h2><%= link_to i.title, idea_path(i) %></h2>
+    <p><%= i.body %></p>
+    <div>
+      By <%= i.user.first_name %>
+
+      <% if user_join(i) %>
+        <%= button_tag "Joined"%>
+      <% else %>
+        <% if can? :join, i %>
+          <%= button_to "Join", idea_members_path(i) %>
+        <% end %>
+      <% end %>
+
+      <% if user_like(i) %>
+        <%= button_tag "Liked"%>
+      <% else %>
+        <% if can? :like, i %>
+          <%= button_to "Like", idea_likes_path(i) %>
+        <% end %>
+      <% end %>
+
+    </div>
+    <div align="right">
+      Members: (<%= i.members.count %>)
+      |
+      Likes: (<%= i.likes.count %>)
+    </div>
+  </div>
+<% end %>

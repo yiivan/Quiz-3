@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IdeaFactory</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<h1><%= link_to "Idea Factory", ideas_path %></h1>
+
+<div align="right">
+
+  <% if user_signed_in? %>
+    Hello <%= current_user.first_name %>,
+    <%= link_to "Log out", sessions_path, method: :delete %>
+  <% else %>
+    <%= link_to "Log In", new_session_path %>
+    <%= link_to "Sign Up", new_user_path %>
+  <% end %>
+
+  <%= button_to "New Idea", new_idea_path, method: :get %>
+</div>
+
+
+<%= yield %>
+
+</body>
+</html>
